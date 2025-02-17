@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import clsx from 'clsx'
+import { useFormStatus } from 'react-dom'
 
 const baseStyles = {
   solid:
@@ -60,5 +61,15 @@ export function Button({ className, ...props }: ButtonProps) {
     <button className={className} {...props} />
   ) : (
     <Link className={className} {...props} />
+  )
+}
+
+export function SubmitButton({ children }: { children: React.ReactNode }) {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button type="submit" variant="solid" className="w-full" disabled={pending}>
+      {pending ? 'Loading...' : children}
+    </Button>
   )
 }

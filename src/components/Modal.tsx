@@ -1,6 +1,5 @@
 'use client'
 
-import { useFormStatus } from 'react-dom'
 import { useState } from 'react'
 import {
   Dialog,
@@ -8,7 +7,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from '@headlessui/react'
-import { Button } from './Button'
+import { Button, SubmitButton } from './Button'
 import { SelectField, TextField } from './Fields'
 
 export default function Modal({
@@ -17,7 +16,6 @@ export default function Modal({
   formAction: (formData: FormData) => void
 }) {
   const [open, setOpen] = useState(false)
-  const { pending } = useFormStatus()
 
   return (
     <>
@@ -108,17 +106,11 @@ export default function Modal({
                     required
                   />
                   <div className="col-span-full">
-                    <Button
-                      type="submit"
-                      variant="solid"
-                      color="accent"
-                      className="w-full"
-                      disabled={pending}
-                    >
+                    <SubmitButton>
                       <span>
                         Let&apos;s go <span aria-hidden="true">&rarr;</span>
                       </span>
-                    </Button>
+                    </SubmitButton>
                   </div>
                 </form>
               </div>
