@@ -2,31 +2,16 @@
 
 const AUTH_URL = 'https://auth.qa.go1.cloud'
 const API_URL = 'https://gateway.qa.go1.cloud'
-
-const PORTAL_MAPPINGS = {
-  au: {
-    Accounting: {
-      client_id: '6309df038245ca3d37c98e0156554398d5f236cc',
-      client_secret: 'a33f611e42043760dd0e9018cebbbe98acff3878',
-    },
-  },
-} as any
+const CLIENT_ID = '6309df038245ca3d37c98e0156554398d5f236cc'
+const CLIENT_SECRET = 'a33f611e42043760dd0e9018cebbbe98acff3878'
 
 export async function getOneTimeToken(formData: FormData): Promise<string> {
   'use server'
 
-  const region = formData.get('region') as string
-  const industry = formData.get('industry') as string
   const userData = {
     given_name: formData.get('given_name') as string,
     family_name: formData.get('family_name') as string,
     email: formData.get('email') as string,
-  }
-
-  // Get the client credentials for the given region and industry
-  const clientCreds = PORTAL_MAPPINGS[region][industry]
-  if (!clientCreds) {
-    throw new Error('Invalid region or industry')
   }
 
   // Get the access token
@@ -36,7 +21,8 @@ export async function getOneTimeToken(formData: FormData): Promise<string> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      ...clientCreds,
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
       grant_type: 'client_credentials',
     }),
   })

@@ -8,28 +8,9 @@ import logoStatamic from '@/images/logos/statamic.svg'
 import logoStaticKit from '@/images/logos/statickit.svg'
 import logoTransistor from '@/images/logos/transistor.svg'
 import logoTuple from '@/images/logos/tuple.svg'
-import Modal from './Modal'
-import { useState } from 'react'
-import { getOneTimeToken } from '../app/actions'
 import { Button } from './Button'
 
 export function Hero() {
-  const [oneTimeToken, setOneTimeToken] = useState<string | null>(null)
-
-  if (oneTimeToken) {
-    return (
-      <Container className="pb-4">
-        <div className="mb-2 flex items-end justify-end">
-          <Button onClick={() => setOneTimeToken(null)}>Close demo</Button>
-        </div>
-        <iframe
-          src={`https://learn.qa.go1.cloud?oneTimeToken=${oneTimeToken}`}
-          className="h-[668px] w-[1200px] border"
-        />
-      </Container>
-    )
-  }
-
   return (
     <Container className="pt-20 pb-16 text-center lg:pt-32">
       <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
@@ -52,11 +33,9 @@ export function Hero() {
         and drive growth.
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
-        <Modal
-          formAction={(formData) =>
-            getOneTimeToken(formData).then((token) => setOneTimeToken(token))
-          }
-        />
+        <Button href="/demo" color="slate">
+          Demo now
+        </Button>
       </div>
       <div className="mt-36 lg:mt-44">
         <p className="font-display text-base text-slate-900">
